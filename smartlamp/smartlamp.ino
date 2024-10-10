@@ -39,6 +39,7 @@ void setup() {
     pinMode(ledPin, OUTPUT);
     pinMode(ldrPin, INPUT);
 
+
     analogWrite(ledPin, 0);
     dht.begin();
   
@@ -67,8 +68,7 @@ void loop() {
       processCommand(command);
       //delay(2000);
     }
-    
-    
+        
 }
 
 // Função responsável por processar comandos
@@ -105,6 +105,7 @@ void processCommand(String command)
       ldrValue = ldrGetValue();
       Serial.printf("RES GET_LDR %d\r\n", ldrValue);  
     }
+
     // Checa se o comando GET_TEMP foi recebido na serial
     else if (driver_command == "GET_TEMP")
     {
@@ -131,7 +132,9 @@ void ledUpdate(int ledValue) {
 
     // Envio de valor normazliado para a porta correspondente
     analogWrite(ledPin, ledValueNormalized); //ledValueNormalized
-    delay(100);
+
+  delay(50);
+
 }
 
 // Função para ler o valor do LDR
@@ -144,6 +147,7 @@ int ldrGetValue() {
     int ldrNormalizedValue = map(value, 0, 4045, 0, 100);
     return ldrNormalizedValue;
 }
+
 
 // Função para ler o valor do DHT Temperatura
 float tempGetValue() {
@@ -175,4 +179,5 @@ void calibrate_ldrMax()
     Serial.printf("LDR sensor value: %d\n", value);
     delay(500);
   }
+
 }
